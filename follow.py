@@ -1,4 +1,3 @@
-import wget
 import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -6,6 +5,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 import time
+
+from selenium.webdriver import FirefoxOptions
+
+opts = FirefoxOptions()
+opts.add_argument("--headless")
+
+
 
 
 f1 = open("output.csv", "r")
@@ -22,8 +28,7 @@ to_follow = [x for x in recommendations if x not in followed]
 
 # Username - mlnc_confessions_
 # Password - MLAconfess@
-
-driver = webdriver.Firefox()
+driver = webdriver.Firefox(options=opts)
 
 driver.get("http://www.instagram.com")
 
@@ -45,13 +50,13 @@ button = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(
 
 time.sleep(5)
 
-alert = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
-    (By.XPATH, '//button[contains(text(), "Not now")]'))).click()
+#alert = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
+#    (By.XPATH, '//button[contains(text(), "Not now")]'))).click()
 
-time.sleep(2)
+#time.sleep(2)
 
-alert2 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
-    (By.XPATH, '//button[contains(text(), "Not Now")]'))).click()
+#alert2 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
+#    (By.XPATH, '//button[contains(text(), "Not Now")]'))).click()
 
 # to_follow=['rbansal99']--------------------------------------------------------------------------------
 import random
@@ -92,7 +97,9 @@ for user in to_follow:
         f3.close()
     except:
         pass
+  
   except:
     pass
+  print(user)  
 
 driver.quit()
